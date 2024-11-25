@@ -1,5 +1,18 @@
 version: "3" 
 services:
+  web:  # nombre del servicio web
+    image: emiliojose42/p2gps:web
+    deploy: 
+      replicas: 1  # número de réplicas
+      resources: 
+        limits: 
+          cpus: "0.25"  # límite de CPU
+          #memory: 300M  # límite de memoria
+      restart_policy: 
+        condition: on-failure  # reiniciar el contenedor en caso de error
+    ports: 
+      - "80:8080"  # mapeo de puertos
+      
   mongo:  # nombre del servicio mongo
     image: emiliojose42/p2gps:db
     deploy: 
@@ -7,7 +20,7 @@ services:
       resources: 
         limits: 
           cpus: "0.15"  # límite de CPU
-          memory: 200M  # límite de memoria
+          #memory: 200M  # límite de memoria
       restart_policy: 
         condition: on-failure  # reiniciar el contenedor en caso de error
     ports: 
@@ -25,24 +38,11 @@ services:
       resources: 
         limits: 
           cpus: "0.3"  # límite de CPU
-          memory: 500M  # límite de memoria
+          #memory: 500M  # límite de memoria
       restart_policy: 
         condition: on-failure  # reiniciar el contenedor en caso de error
     ports: 
       - "8080:8080"  # mapeo de puertos
-
-  web:  # nombre del servicio web
-    image: emiliojose42/p2gps:web
-    deploy: 
-      replicas: 1  # número de réplicas
-      resources: 
-        limits: 
-          cpus: "0.25"  # límite de CPU
-          memory: 300M  # límite de memoria
-      restart_policy: 
-        condition: on-failure  # reiniciar el contenedor en caso de error
-    ports: 
-      - "80:8080"  # mapeo de puertos
 
 volumes:  
   db-data:  # definición del volumen persistente
