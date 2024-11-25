@@ -1,5 +1,6 @@
 version: "3"
-services:# ahora se indican los servicios por el orden en que se quiere que se inicien.
+services:
+# ahora se indican los servicios por el orden en que se quiere que se inicien.
 #Por ejemplo, mongo debe estar antes de order.
 #mongo: mismo nombre usado en el run.sh de Order y application.properties. #Se resuelve en una dirección IP.
     mongo:
@@ -10,13 +11,13 @@ services:# ahora se indican los servicios por el orden en que se quiere que se i
                 limits:
                     cpus: "0.15"
                     memory: 200M
-                restart_policy:
-                    condition: on-failure #reinicar el contenedor si falla
-            ports:
-                - "28017:28017" # mapeo el Puerto del contenedor (derecha) con el puerto del host del servicio
-                - "27017:27017"
-            volumes:
-                - "db-data:/data/db" # para guardar en local los cambios en el contenedor
+            restart_policy:
+                condition: on-failure #reinicar el contenedor si falla
+        ports:
+            - "28017:28017" # mapeo el Puerto del contenedor (derecha) con el puerto del host del servicio
+            - "27017:27017"
+        volumes:
+            - "db-data:/data/db" # para guardar en local los cambios en el contenedor
 
     order:
         image: tusuarioDocker/p2gps:order
